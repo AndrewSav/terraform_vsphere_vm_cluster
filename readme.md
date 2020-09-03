@@ -9,7 +9,7 @@ This is a module to quickly provision a number of VMs for a cluster, especially 
 * Use DHCP or static IP addresses for new VMs
 * Override individual provisioning properties on group or individual VM basis
 * Specify additional disks if required
-* Automatically a Kubespray inventory
+* Automatically generate a Kubespray inventory
 * Customize inventory template file for your needs
 
 A vSphere virtual machine has a lot of parameters, so it was not feasible to support all of them. Following parameters are supported:
