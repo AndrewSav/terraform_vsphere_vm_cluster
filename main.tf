@@ -5,7 +5,7 @@ locals {
     for vm in local.merged : [
       for item in range(vm.count) :
       merge(vm, {
-        name                  = try(vm.name_array[item], "${vm.name}${item + 1}")
+        name                  = try("${vm.name_prefix}${vm.name_array[item]}", "${vm.name_prefix}${vm.name}${item + 1}", vm.name_array[item], "${vm.name}${item + 1}")
         etcd                  = try(vm.etcd_array[item], vm.etcd == null ? null : "${vm.etcd}${item + 1}", null)
         ip                    = try(vm.ip_array[item], vm.ip)
         datacenter            = try(vm.datacenter_array[item], vm.datacenter)

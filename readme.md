@@ -15,6 +15,7 @@ This is a module to quickly provision a number of VMs for a cluster, especially 
 A vSphere virtual machine has a lot of parameters, so it was not feasible to support all of them. Following parameters are supported:
 
 ```text
+name_prefix           = "k-"               # Prefix for all machine names / host names in cluster
 name                  = "default"          # Virtual machine name and host name
 ip                    = null               # IP address, use DHCP if null
 datacenter            = "Datacenter"       # Datacenter to provision VM in

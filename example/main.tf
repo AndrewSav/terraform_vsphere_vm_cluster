@@ -2,6 +2,7 @@ locals {
   # These are defaults for each provisionined VM
   # They will apply to every VM unless overwritten for specific VM below
   vm_defaults = {
+    name_prefix           = "k-"               # Prefix for all machine names / host names in cluster
     name                  = "default"          # Virtual machine name and host name
     ip                    = null               # IP address, use DHCP if null
     datacenter            = "Datacenter"       # Datacenter to provision VM in
