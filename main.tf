@@ -27,6 +27,21 @@ locals {
     ]
   ])
   vms = { for vm in local.flattened : vm.name => vm }
+  folders = var.create_vm_folder ? {
+    for folder in distinct([
+      for vm in local.flattened : {
+        folder     = vm.folder,
+        datacenter = vm.datacenter
+      }
+    ]) : "${folder.datacenter}-${folder.folder}" =>
+    {
+      folder = folder.folder
+      dckey  = coalesce([
+        for vm in local.flattened : vm.name 
+        if vm.folder == folder.folder && vm.datacenter == folder.datacenter
+      ]...) 
+    }
+  } : {}
 }
 
 data "vsphere_datacenter" "datacentre" {
@@ -56,6 +71,13 @@ data "vsphere_virtual_machine" "template" {
   for_each      = local.vms
   name          = each.value.template
   datacenter_id = data.vsphere_datacenter.datacentre[each.key].id
+}
+
+resource "vsphere_folder" "folder" {
+  for_each      = local.folders
+  path          = each.value.folder
+  type          = "vm"
+  datacenter_id = data.vsphere_datacenter.datacentre[each.value.dckey].id
 }
 
 resource "vsphere_virtual_machine" "vm" {
