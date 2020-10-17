@@ -21,3 +21,4 @@ ${member.name} ansible_host=${member.ip} %{ if member.etcd != null }etcd_member_
 kube-master
 
 [calico-rr]
+[storage]
